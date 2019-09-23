@@ -2,9 +2,9 @@
 
 #include "dir/file.h"
 #include "dir/debug.h"
-#include "dir/config.h"
+#include "dir/node.h"
 
-Config conf;
+Node conf;
 
 int main(int argc, char **argv) {
     // parse arguments
@@ -12,8 +12,6 @@ int main(int argc, char **argv) {
     std::vector<std::string> arguments;
 
     for (int i = 0; i < argc; i++) arguments.push_back(argv[i]);
-
-    //conf.parse(arguments);
 
     // load configuration
 
@@ -41,7 +39,12 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    // create x11 window using xcb
+    // get window attributes from config
+
+    int x = conf["startup", "window", "x"].as_int(50);
+    int y = conf["startup", "window", "y"].as_int(50);
+    int width = conf["startup", "window", "width"].as_int(100);
+    int height = conf["startup", "window", "height"].as_int(100);
 
     // open connection to xserver on default display
 
@@ -65,13 +68,13 @@ int main(int argc, char **argv) {
 
     xcb_screen_t* screen = screens.data;
 
-    debug.info("connected x11 display has " + std::to_string(screens.rem)+ " screens");
+    debug.info("connected x11 display has " + std::to_string(screens.rem)+ " screen(s)");
 
     // create new window on given screen
 
     xcb_window_t window = xcb_generate_id(connection);
 
-    xcb_create_window(connection, XCB_COPY_FROM_PARENT, window, screen->root, 10, 10, 800, 500, 1, XCB_WINDOW_CLASS_INPUT_OUTPUT, screen->root_visual, 0, NULL);
+    xcb_create_window(connection, XCB_COPY_FROM_PARENT, window, screen->root, x, y, width, height, 0, XCB_WINDOW_CLASS_INPUT_OUTPUT, screen->root_visual, 0, NULL);
 
     // map window & flush
 

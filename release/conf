@@ -1,0 +1,6 @@
+startup:
+  window:
+    x: 100
+    y: 100
+    width: 800
+    height = 500
