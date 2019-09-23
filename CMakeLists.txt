@@ -6,7 +6,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED OFF)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_executable(liblynx
+  src/main.cpp
   
+  src/dir/file.cpp
+  src/dir/debug.cpp
+  src/dir/config.cpp
 )
 
 target_include_directories(liblynx PRIVATE liblynx/)
