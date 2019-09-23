@@ -14,10 +14,6 @@ private:
     std::map<std::string, float> floats = std::map<std::string, float>();
     std::map<std::string, std::string> strings = std::map<std::string, std::string>();
 public:
-    // Constructors & Destructors
-
-    Config();
-    ~Config();
 
     // Member Functions
 

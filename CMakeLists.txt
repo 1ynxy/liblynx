@@ -18,7 +18,7 @@ target_include_directories(liblynx PRIVATE src/)
 
 target_link_libraries(liblynx
   PRIVATE
-    
+    xcb
   PUBLIC
     
 )

@@ -2,16 +2,6 @@
 
 #include "file.h"
 
-// Constructors & Destructors
-
-Config::Config() {
-
-}
-
-Config::~Config() {
-	
-}
-
 // Member Functions
 
 bool Config::get_bool(const std::string& key) {
