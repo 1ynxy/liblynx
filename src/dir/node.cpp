@@ -1,5 +1,7 @@
 #include "node.h"
 
+#include "file.h"
+
 // Constructors & Destructors
 
 Node::Node() {
@@ -19,9 +21,19 @@ bool Node::load(const std::string& path) {
 
 	if (!file.read(path, data)) return false;
 
-    // parse data
+    // deserialise data
 
-    
+    std::vector<std::string> loc;
+
+    for (std::string line : split_str(data)) {
+        std::string clean = clean_str(line);
+        
+        // parse cleaned string
+
+        std::vector<std::string> keyVal = split_str(clean, ':');
+
+        
+    }
     
     return true;
 }
@@ -29,7 +41,7 @@ bool Node::load(const std::string& path) {
 bool Node::save(const std::string& path) {
     std::string data = "";
 
-    // parse data
+    // serialise data
 
 
 

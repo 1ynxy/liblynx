@@ -2,6 +2,7 @@
 #define debug_h
 
 #include <iostream>
+
 #include <string>
 
 struct Debug {

@@ -1,10 +1,10 @@
 #ifndef file_h
 #define file_h
 
-#include <string>
+#include <vector>
+
 #include <sstream>
 #include <fstream>
-#include <vector>
 
 struct File {
 	// Member Variables
@@ -24,6 +24,8 @@ struct File {
     bool read(const std::string& path, std::string& data) const;
     bool write(const std::string& path, const std::string& data) const;
 };
+
+std::string clean_str(const std::string& data);
 
 std::vector<std::string> split_str(const std::string& data, const char chr = '\n');
 

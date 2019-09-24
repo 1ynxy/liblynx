@@ -76,6 +76,30 @@ bool File::write(const std::string& path, const std::string& data) const {
     return true;
 }
 
+std::string clean_str(const std::string& data) {
+	std::string result = "";
+
+	// remove whitespace outside of quotations
+
+	bool escaped = false;
+	bool quoted = false;
+
+	for (char c : data) {
+		if (escaped) {
+			result += c;
+
+			escaped = false;
+		}
+		else {
+			if (c == '\\') escaped = true;
+			else if (c == '\"') quoted = !quoted;
+			else if (c != ' ' || (quoted && c == ' ')) result += c;
+		}
+	}
+
+	return result;
+}
+
 std::vector<std::string> split_str(const std::string& data, const char chr) {
 	// split on given character, newline by default
 
@@ -85,6 +109,8 @@ std::vector<std::string> split_str(const std::string& data, const char chr) {
 		if (i != chr) result.back() += i;
 		else result.push_back("");
 	}
+
+	if (result.back() == "") result.erase(result.end());
 
 	return result;
 }

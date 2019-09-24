@@ -2,7 +2,6 @@
 #define config_h
 
 #include <string>
-#include <vector>
 #include <map>
 
 struct Config {
