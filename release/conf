@@ -5,3 +5,6 @@ startup:
     width: 800
     height: 500
     name: "test window"
+test:
+  value1: "this is a string"
+  value2: true

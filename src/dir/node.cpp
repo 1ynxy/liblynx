@@ -1,6 +1,7 @@
 #include "node.h"
 
 #include "file.h"
+#include "debug.h"
 
 // Constructors & Destructors
 
@@ -26,18 +27,52 @@ bool Node::load(const std::string& path) {
     std::vector<std::string> loc;
 
     for (std::string line : split_str(data)) {
-        std::string clean = clean_str(line);
+        if (line[0] == '#' || line[0] == '\n') continue;
+
+        // get path depth
+
+        int numSpaces = 0;
+
+        for (char c : line) {
+            if (c == ' ') numSpaces++;
+            else break;
+        }
+
+        int depth = (numSpaces / 2) + 1;
+
+        if (depth > loc.size() + 1) return false;
         
-        // parse cleaned string
+        // clean and parse string
 
-        std::vector<std::string> keyVal = split_str(clean, ':', 1);
+        std::vector<std::string> split = split_str(clean_str(line), ':', 1);
 
-        if (keyVal.size() == 1) {
+        debug.info("before: " + std::to_string(depth) + " : " + std::to_string(loc.size()));
 
+        while (depth <= loc.size()) loc.erase(loc.end());
+
+        loc.push_back(split[0]);
+
+        if (split.size() > 1) {
+            // line is path and value
+
+            Node& tmp = *this;
+            
+            for (std::string bit : loc) tmp = tmp[bit];
+
+            tmp = split[1];
+
+            // get & print path
+
+            std::string debg = "/";
+
+            for (std::string bit : loc) debg += bit + "/";
+
+            debg += split[1];
+
+            debug.info("loaded : " + debg);
         }
-        else {
 
-        }
+        debug.info("after: " + std::to_string(depth) + " : " + std::to_string(loc.size()));
     }
     
     return true;
@@ -48,7 +83,7 @@ bool Node::save(const std::string& path) {
 
     // serialise data
 
-
+    
 
     // save data
 
@@ -157,19 +192,21 @@ void Node::operator=(std::string val) {
     value = new String(val);
 }
 
-void Node::operator=(std::initializer_list<std::string> val) {
-    if (value) delete(value);
-
-    value = new StringList(val);
-}
-
 void Node::operator=(std::vector<std::string> val) {
     if (value) delete(value);
 
     value = new StringList(val);
 }
 
+void Node::operator=(std::initializer_list<std::string> val) {
+    if (value) delete(value);
+
+    value = new StringList(val);
+}
+
 void Node::operator=(long) {
+    // so value is nullable
+
     if (value) {
         delete(value);
 

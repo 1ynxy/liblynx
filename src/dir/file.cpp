@@ -114,6 +114,8 @@ std::vector<std::string> split_str(const std::string& data, const char chr, int 
 		}
 	}
 
+	// remove errant empty end string
+
 	if (result.back() == "") result.erase(result.end());
 
 	return result;

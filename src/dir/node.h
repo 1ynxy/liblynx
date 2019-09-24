@@ -91,8 +91,8 @@ struct Node {
     void operator=(float val);
     void operator=(const char* val);
     void operator=(std::string val);
-    void operator=(std::initializer_list<std::string> val);
     void operator=(std::vector<std::string> val);
+    void operator=(std::initializer_list<std::string> val);
 
     void operator=(long);
 };
