@@ -39,16 +39,6 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    // test string handling
-
-    std::string data = "  startup :";
-
-    std::string clean = clean_str(data);
-
-    std::vector<std::string> keyVal = split_str(clean, ':');
-
-    debug.info(std::to_string(keyVal.size()) + " | " + keyVal[0] + keyVal[1]);
-
     // get window attributes from config
 
     int x = conf["startup", "window", "x"].as_int(50);

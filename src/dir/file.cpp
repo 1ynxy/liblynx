@@ -100,14 +100,18 @@ std::string clean_str(const std::string& data) {
 	return result;
 }
 
-std::vector<std::string> split_str(const std::string& data, const char chr) {
+std::vector<std::string> split_str(const std::string& data, const char chr, int count) {
 	// split on given character, newline by default
 
 	std::vector<std::string> result { "" };
 
 	for (char i : data) {
-		if (i != chr) result.back() += i;
-		else result.push_back("");
+		if (i != chr || count == 0) result.back() += i;
+		else {
+			result.push_back("");
+
+			if (count > 0) count--;
+		}
 	}
 
 	if (result.back() == "") result.erase(result.end());

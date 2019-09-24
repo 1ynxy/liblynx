@@ -30,9 +30,14 @@ bool Node::load(const std::string& path) {
         
         // parse cleaned string
 
-        std::vector<std::string> keyVal = split_str(clean, ':');
+        std::vector<std::string> keyVal = split_str(clean, ':', 1);
 
-        
+        if (keyVal.size() == 1) {
+
+        }
+        else {
+
+        }
     }
     
     return true;
