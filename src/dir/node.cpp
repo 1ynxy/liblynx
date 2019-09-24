@@ -57,7 +57,47 @@ bool Node::load(const std::string& path) {
             
             for (std::string bit : loc) tmp = &tmp->operator[](bit);
 
-            tmp->value = new String(split[1]);
+            std::string val = split[1];
+
+            // check if value is a list
+
+            if (val[0] == '[' && val[val.size()] == ']') {
+                // split into values
+
+                
+
+                continue;
+            }
+
+            // check if value contains non-number characters
+
+            bool nums = true;
+
+            for (char c : val) {
+                if (!isdigit(c) && c != '.') nums = false;
+
+                break;
+            }
+
+            if (nums) {
+                // if numerical add as number
+
+                tmp->value = new Number(std::stof(val));
+
+                continue;
+            }
+            
+            if (val == "true" || val == "false") {
+                // if true or false add as boolean
+
+                tmp->value = new Bool(val == "true");
+
+                continue;
+            }
+
+            // else add as string
+                
+            tmp->value = new String(val);
         }
     }
     
