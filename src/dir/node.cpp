@@ -46,8 +46,6 @@ bool Node::load(const std::string& path) {
 
         std::vector<std::string> split = split_str(clean_str(line), ':', 1);
 
-        debug.info("before: " + std::to_string(depth) + " : " + std::to_string(loc.size()));
-
         while (depth <= loc.size()) loc.erase(loc.end());
 
         loc.push_back(split[0]);
@@ -55,24 +53,12 @@ bool Node::load(const std::string& path) {
         if (split.size() > 1) {
             // line is path and value
 
-            Node& tmp = *this;
+            Node* tmp = this;
             
-            for (std::string bit : loc) tmp = tmp[bit];
+            for (std::string bit : loc) tmp = &tmp->operator[](bit);
 
-            tmp = split[1];
-
-            // get & print path
-
-            std::string debg = "/";
-
-            for (std::string bit : loc) debg += bit + "/";
-
-            debg += split[1];
-
-            debug.info("loaded : " + debg);
+            tmp->value = new String(split[1]);
         }
-
-        debug.info("after: " + std::to_string(depth) + " : " + std::to_string(loc.size()));
     }
     
     return true;
@@ -104,28 +90,16 @@ bool Node::as_bool(bool def) {
     return def;
 }
 
-int Node::as_int(int def) {
-    // cast to int and return
+float Node::as_num(float def) {
+    // cast to float and return
 
     if (value) {
-        Int* val_cast = dynamic_cast<Int*>(value);
+        Number* val_cast = dynamic_cast<Number*>(value);
 
         if (val_cast) return val_cast->value;
     }
 
     return def;
-}
-
-float Node::as_float(float def) {
-    // cast to float and return
-
-    if (value) {
-        Float* val_cast = dynamic_cast<Float*>(value);
-
-        if (val_cast) return val_cast->value;
-    }
-
-    return 0.0f;
 }
 
 std::string Node::as_string(std::string def) {
@@ -171,13 +145,13 @@ void Node::operator=(bool val) {
 void Node::operator=(int val) {
     if (value) delete(value);
 
-    value = new Int(val);
+    value = new Number(val);
 }
 
 void Node::operator=(float val) {
     if (value) delete(value);
 
-    value = new Float(val);
+    value = new Number(val);
 }
 
 void Node::operator=(const char* val) {

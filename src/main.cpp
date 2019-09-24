@@ -39,18 +39,12 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    // testing
-
-    debug.info(conf["startup"]["window"]["x"].as_string());
-    debug.info(conf["startup"]["window"]["name"].as_string());
-    debug.info(conf["test"]["value1"].as_string());
-
     // get window attributes from config
 
-    int x = conf["startup"]["window"]["x"].as_int(50);
-    int y = conf["startup"]["window"]["y"].as_int(50);
-    int width = conf["startup"]["window"]["width"].as_int(100);
-    int height = conf["startup"]["window"]["height"].as_int(100);
+    int x = conf["startup"]["window"]["x"].as_num(50);
+    int y = conf["startup"]["window"]["y"].as_num(50);
+    int width = conf["startup"]["window"]["width"].as_num(100);
+    int height = conf["startup"]["window"]["height"].as_num(100);
 
     // open connection to xserver on default display
 

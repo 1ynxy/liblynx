@@ -19,24 +19,14 @@ struct Bool : public Value {
     Bool(bool val) : value(val) {}
 };
 
-struct Int : public Value {
-    // Member Variables
-
-    int value;
-
-    // Constructors & Destructors
-
-    Int(int val) : value(val) {}
-};
-
-struct Float : public Value {
+struct Number : public Value {
     // Member Variables
 
     float value;
 
     // Constructors & Destructors
 
-    Float(float val) : value(val) {}
+    Number(float val) : value(val) {}
 };
 
 struct String : public Value {
@@ -77,8 +67,7 @@ struct Node {
     bool save(const std::string& path);
 
     bool as_bool(bool def = false);
-    int as_int(int def = 0);
-    float as_float(float def = 0.0f);
+    float as_num(float def = 0.0f);
     std::string as_string(std::string def = "");
     std::vector<std::string> as_string_list(std::vector<std::string> def = { });
 
