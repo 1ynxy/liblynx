@@ -4,6 +4,8 @@
 #include "dir/debug.h"
 #include "dir/node.h"
 
+#include "win/xcb.h"
+
 Node conf;
 
 int main(int argc, char **argv) {
@@ -46,47 +48,7 @@ int main(int argc, char **argv) {
     int width = conf["startup"]["window"]["width"].as_num(100);
     int height = conf["startup"]["window"]["height"].as_num(100);
 
-    // open connection to xserver on default display
-
-    int defaultScreen = 0;
-    
-    xcb_connection_t* connection = xcb_connect(NULL, &defaultScreen);
-
-    if (xcb_connection_has_error(connection) > 0) {
-        debug.error("failed to open default display");
-
-        return 1;
-    }
-
-    debug.info("opened x11 connection to default display");
-
-    // get connection information && screen iterator
-
-    const xcb_setup_t* setup = xcb_get_setup(connection);
-
-    xcb_screen_iterator_t screens = xcb_setup_roots_iterator(setup);
-
-    xcb_screen_t* screen = screens.data;
-
-    debug.info("connected x11 display has " + std::to_string(screens.rem)+ " screen(s)");
-
-    // create new window on given screen
-
-    xcb_window_t window = xcb_generate_id(connection);
-
-    xcb_create_window(connection, XCB_COPY_FROM_PARENT, window, screen->root, x, y, width, height, 0, XCB_WINDOW_CLASS_INPUT_OUTPUT, screen->root_visual, 0, NULL);
-
-    // map window & flush
-
-    xcb_map_window(connection, window);
-
-    xcb_flush(connection);
+    display.create_window(0, x, y, width, height);
 
     while (true) { };
-
-    // exit
-
-    xcb_disconnect(connection);
-
-    debug.info("closed x11 connection");
 }

@@ -1,7 +1,6 @@
 #include "node.h"
 
 #include "file.h"
-#include "debug.h"
 
 // Constructors & Destructors
 
@@ -64,7 +63,7 @@ bool Node::load(const std::string& path) {
             if (val[0] == '[' && val[val.size()] == ']') {
                 // split into values
 
-                
+
 
                 continue;
             }

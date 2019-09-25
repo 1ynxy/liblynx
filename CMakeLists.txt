@@ -11,6 +11,8 @@ add_executable(liblynx
   src/dir/file.cpp
   src/dir/debug.cpp
   src/dir/node.cpp
+
+  src/win/xcb.cpp
 )
 
 target_include_directories(liblynx PRIVATE liblynx/)

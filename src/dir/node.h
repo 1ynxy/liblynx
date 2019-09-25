@@ -1,3 +1,6 @@
+#ifndef node_h
+#define node_h
+
 #include <string>
 #include <map>
 
@@ -85,3 +88,5 @@ struct Node {
 
     void operator=(long);
 };
+
+#endif
