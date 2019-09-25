@@ -3,7 +3,13 @@
 
 #include <vector>
 
+#include <X11/Xlib.h>
+#include <X11/Xlib-xcb.h>
+
 #include <xcb/xcb.h>
+
+#include <GL/glx.h>
+#include <GL/gl.h>
 
 struct XCBConn {
     // Member Variables

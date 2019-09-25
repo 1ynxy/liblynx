@@ -17,8 +17,6 @@ XCBConn::XCBConn() {
         return;
     }
 
-    debug.info("opened x11 connection to default display");
-
     // get connection information && screen iterator
 
     const xcb_setup_t* setup = xcb_get_setup(connection);
@@ -27,7 +25,7 @@ XCBConn::XCBConn() {
 
     for (int i = 0; i < screenIter.rem; i++) screens.push_back(screenIter.data[i]);
 
-    debug.info("connected x11 display has " + std::to_string(screens.size())+ " screen(s)");
+    debug.info("opened x11 connection to default display with " + std::to_string(screens.size())+ " screen(s)");
 }
 
 XCBConn::~XCBConn() {
@@ -49,11 +47,17 @@ xcb_window_t XCBConn::create_window(int screenNum, int x, int y, int width, int 
 
     // create new window on given screen, map & flush
 
+    uint32_t eventmask = XCB_EVENT_MASK_EXPOSURE | XCB_EVENT_MASK_FOCUS_CHANGE | XCB_EVENT_MASK_KEY_PRESS | XCB_EVENT_MASK_KEY_RELEASE;
+
+    uint32_t valuelist[] = { eventmask };
+
+    uint32_t valuemask = XCB_CW_EVENT_MASK;
+
     xcb_screen_t screen = screens[screenNum];
 
     xcb_window_t window = xcb_generate_id(connection);
 
-    xcb_create_window(connection, XCB_COPY_FROM_PARENT, window, screen.root, x, y, width, height, 0, XCB_WINDOW_CLASS_INPUT_OUTPUT, screen.root_visual, 0, NULL);
+    xcb_create_window(connection, XCB_COPY_FROM_PARENT, window, screen.root, x, y, width, height, 0, XCB_WINDOW_CLASS_INPUT_OUTPUT, screen.root_visual, valuemask, valuelist);
 
     xcb_map_window(connection, window);
 

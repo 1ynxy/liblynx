@@ -48,7 +48,19 @@ int main(int argc, char **argv) {
     int width = conf["startup"]["window"]["width"].as_num(100);
     int height = conf["startup"]["window"]["height"].as_num(100);
 
-    display.create_window(0, x, y, width, height);
+    xcb_window_t window = display.create_window(0, x, y, width, height);
 
-    while (true) { };
+    while (true) {
+        xcb_generic_event_t* event = xcb_wait_for_event(display.connection);
+
+        if (!event) {
+            debug.error("i/o error in xcb_wait_for_event");
+
+            break;
+        }
+
+        free(event);
+
+        debug.info("event happened!");
+    };
 }
