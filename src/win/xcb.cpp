@@ -38,7 +38,7 @@ XCBConn::~XCBConn() {
 
 // Member Functions
 
-xcb_window_t XCBConn::create_window(int screenNum, int x, int y, int width, int height) {
+xcb_window_t XCBConn::create_window(int screenNum, int x, int y, int width, int height, std::string name) {
     if (screenNum > screens.size()) {
         debug.error("attempted to create window on nonexistent screen");
 
@@ -63,11 +63,17 @@ xcb_window_t XCBConn::create_window(int screenNum, int x, int y, int width, int 
 
     uint32_t valuemask = XCB_CW_EVENT_MASK;
 
-    // create new window on given screen, map & flush
+    // create new window on given screen
 
     xcb_window_t window = xcb_generate_id(connection);
 
     xcb_create_window(connection, XCB_COPY_FROM_PARENT, window, screen.root, x, y, width, height, 0, XCB_WINDOW_CLASS_INPUT_OUTPUT, screen.root_visual, valuemask, valuelist);
+
+    // configure
+
+    xcb_change_property(connection, XCB_PROP_MODE_REPLACE, window, XCB_ATOM_WM_NAME, XCB_ATOM_STRING, 8, name.size(), name.c_str());
+
+    // map & flush buffer
 
     xcb_map_window(connection, window);
 

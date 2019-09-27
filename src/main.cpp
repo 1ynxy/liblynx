@@ -40,7 +40,7 @@ int main(int argc, char **argv) {
 
         return 1;
     }
-
+    
     // get window attributes from config
 
     int x = conf["startup"]["window"]["x"].as_num(50);
@@ -48,7 +48,9 @@ int main(int argc, char **argv) {
     int width = conf["startup"]["window"]["width"].as_num(100);
     int height = conf["startup"]["window"]["height"].as_num(100);
 
-    xcb_window_t window = display.create_window(0, x, y, width, height);
+    std::string name = conf["startup"]["window"]["name"].as_string("new window");
+
+    xcb_window_t window = display.create_window(0, x, y, width, height, name);
 
     while (true) {
         xcb_generic_event_t* event = xcb_wait_for_event(display.connection);

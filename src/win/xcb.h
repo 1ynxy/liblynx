@@ -1,6 +1,7 @@
 #ifndef xcb_h
 #define xcb_h
 
+#include <string>
 #include <vector>
 
 #include <X11/Xlib.h>
@@ -27,7 +28,7 @@ struct XCBConn {
 
     // Member Functions
 
-    xcb_window_t create_window(int screenNum, int x, int y, int width, int height);
+    xcb_window_t create_window(int screenNum, int x, int y, int width, int height, std::string name);
 };
 
 extern XCBConn display;
