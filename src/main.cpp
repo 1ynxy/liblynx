@@ -1,10 +1,6 @@
-#include <xcb/xcb.h>
-
 #include "dir/file.h"
 #include "dir/debug.h"
 #include "dir/node.h"
-
-#include "win/xcb.h"
 
 Node conf;
 
@@ -40,29 +36,4 @@ int main(int argc, char **argv) {
 
         return 1;
     }
-    
-    // get window attributes from config
-
-    int x = conf["startup"]["window"]["x"].as_num(50);
-    int y = conf["startup"]["window"]["y"].as_num(50);
-    int width = conf["startup"]["window"]["width"].as_num(100);
-    int height = conf["startup"]["window"]["height"].as_num(100);
-
-    std::string name = conf["startup"]["window"]["name"].as_string("new window");
-
-    xcb_window_t window = display.create_window(0, x, y, width, height, name);
-
-    while (true) {
-        xcb_generic_event_t* event = xcb_wait_for_event(display.connection);
-
-        if (!event) {
-            debug.error("i/o error in xcb_wait_for_event");
-
-            break;
-        }
-
-        free(event);
-
-        debug.info("event happened!");
-    };
 }
