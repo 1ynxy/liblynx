@@ -8,9 +8,11 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 add_executable(liblynx
   src/main.cpp
   
-  src/dir/file.cpp
-  src/dir/debug.cpp
-  src/dir/node.cpp
+  src/inout/file.cpp
+  src/inout/debug.cpp
+  src/inout/node.cpp
+
+  src/render/vulkan.cpp
 )
 
 target_include_directories(liblynx PRIVATE liblynx/)

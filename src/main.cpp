@@ -1,6 +1,6 @@
-#include "dir/file.h"
-#include "dir/debug.h"
-#include "dir/node.h"
+#include "inout/file.h"
+#include "inout/debug.h"
+#include "inout/node.h"
 
 Node conf;
 
