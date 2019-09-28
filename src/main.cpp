@@ -2,6 +2,8 @@
 #include "inout/debug.h"
 #include "inout/node.h"
 
+#include "render/vulkan.h"
+
 Node conf;
 
 int main(int argc, char **argv) {
