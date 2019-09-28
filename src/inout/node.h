@@ -57,7 +57,7 @@ struct Node {
 
     std::map<std::string, Node> children;
 
-    Value* value;
+    Value* value = nullptr;
 
     // Constructors & Destructors
 

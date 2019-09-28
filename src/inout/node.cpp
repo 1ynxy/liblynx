@@ -5,7 +5,7 @@
 // Constructors & Destructors
 
 Node::Node() {
-    value = nullptr;
+    
 }
 
 Node::~Node() {
@@ -220,9 +220,7 @@ void Node::operator=(std::initializer_list<std::string> val) {
 void Node::operator=(long) {
     // so value is nullable
 
-    if (value) {
-        delete(value);
+    if (value) delete(value);
 
-        value = nullptr;
-    }
+    value = nullptr;
 }
