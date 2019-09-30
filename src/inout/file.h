@@ -9,20 +9,20 @@
 struct File {
 	// Member Variables
 
-    std::string bin = "";
-    std::string home = "";
+	std::string bin = "";
+	std::string home = "";
 
-    // Constructors & Destructors
+	// Constructors & Destructors
 
-    File();
-    ~File();
+	File();
+	~File();
 
-    // Member Functions
+	// Member Functions
 
-    void parse_path(std::string& path) const;
+	void parse_path(std::string& path) const;
 
-    bool read(const std::string& path, std::string& data) const;
-    bool write(const std::string& path, const std::string& data) const;
+	bool read(const std::string& path, std::string& data) const;
+	bool write(const std::string& path, const std::string& data) const;
 };
 
 extern File file;

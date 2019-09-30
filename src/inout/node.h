@@ -7,86 +7,86 @@
 #include "file.h"
 
 struct Value {
-    // Virtual Member Functions
+	// Virtual Member Functions
 
-    virtual ~Value() {};
+	virtual ~Value() {};
 };
 
 struct Bool : public Value {
-    // Member Variables
+	// Member Variables
 
-    bool value;
+	bool value;
 
-    // Constructors & Destructors
+	// Constructors & Destructors
 
-    Bool(bool val) : value(val) {}
+	Bool(bool val) : value(val) {}
 };
 
 struct Number : public Value {
-    // Member Variables
+	// Member Variables
 
-    float value;
+	float value;
 
-    // Constructors & Destructors
+	// Constructors & Destructors
 
-    Number(float val) : value(val) {}
+	Number(float val) : value(val) {}
 };
 
 struct String : public Value {
-    // Member Variables
+	// Member Variables
 
-    std::string value;
+	std::string value;
 
-    // Constructors & Destructors
+	// Constructors & Destructors
 
-    String(std::string val) : value(val) {}
+	String(std::string val) : value(val) {}
 };
 
 struct StringList : public Value {
-    // Member Variables
+	// Member Variables
 
-    std::vector<std::string> value;
+	std::vector<std::string> value;
 
-    // Constructors & Destructors
+	// Constructors & Destructors
 
-    StringList(std::vector<std::string> val) : value(val) {}
+	StringList(std::vector<std::string> val) : value(val) {}
 };
 
 struct Node {
-    // Member Variables
+	// Member Variables
 
-    std::map<std::string, Node> children;
+	std::map<std::string, Node> children;
 
-    Value* value = nullptr;
+	Value* value = nullptr;
 
-    // Constructors & Destructors
+	// Constructors & Destructors
 
-    Node();
-    ~Node();
+	Node();
+	~Node();
 
-    // Member Functions
+	// Member Functions
 
-    bool load(const std::string& path);
-    bool save(const std::string& path);
+	bool load(const std::string& path);
+	bool save(const std::string& path);
 
-    bool as_bool(bool def = false);
-    float as_num(float def = 0.0f);
-    std::string as_string(std::string def = "");
-    std::vector<std::string> as_string_list(std::vector<std::string> def = { });
+	bool as_bool(bool def = false);
+	float as_num(float def = 0.0f);
+	std::string as_string(std::string def = "");
+	std::vector<std::string> as_string_list(std::vector<std::string> def = { });
 
-    // Operator Overloads
+	// Operator Overloads
 
-    Node& operator[](std::string key);
+	Node& operator[](std::string key);
 
-    void operator=(bool val);
-    void operator=(int val);
-    void operator=(float val);
-    void operator=(const char* val);
-    void operator=(std::string val);
-    void operator=(std::vector<std::string> val);
-    void operator=(std::initializer_list<std::string> val);
+	void operator=(bool val);
+	void operator=(int val);
+	void operator=(float val);
+	void operator=(const char* val);
+	void operator=(std::string val);
+	void operator=(std::vector<std::string> val);
+	void operator=(std::initializer_list<std::string> val);
 
-    void operator=(long);
+	void operator=(long);
 };
 
 #endif

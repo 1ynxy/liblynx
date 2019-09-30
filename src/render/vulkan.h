@@ -7,16 +7,16 @@
 
 class VulkanInstance {
 private:
-    // Member Variables
+	// Member Variables
 
-    VkInstance instance;
+	VkInstance instance;
 public:
-    // Constructors & Destructors
+	// Constructors & Destructors
 
-    VulkanInstance();
-    ~VulkanInstance();
+	VulkanInstance();
+	~VulkanInstance();
 
-    // Member Functions
+	// Member Functions
 
 
 };

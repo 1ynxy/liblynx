@@ -5,7 +5,7 @@
 	#include <unistd.h>
 	#include <libgen.h>
 #elif WIN32
-    //#include <>
+	//#include <>
 #endif
 
 File file;
@@ -39,9 +39,9 @@ void File::parse_path(std::string& path) const {
 bool File::read(const std::string& path, std::string& data) const {
 	// open file stream, return on fail
 
-    std::ifstream file(path);
+	std::ifstream file(path);
 	
-    if (file.fail()) return false;
+	if (file.fail()) return false;
 
 	// read file contents
 
@@ -61,19 +61,19 @@ bool File::read(const std::string& path, std::string& data) const {
 bool File::write(const std::string& path, const std::string& data) const {
 	// open file stream, return on fail
 
-    std::ofstream file(path);
+	std::ofstream file(path);
 
-    if (file.fail()) return false;
+	if (file.fail()) return false;
 
 	// write file contents
 
-    file << data;
+	file << data;
 
 	// close file stream
 
-    file.close();
+	file.close();
 
-    return true;
+	return true;
 }
 
 std::string clean_str(const std::string& data) {
