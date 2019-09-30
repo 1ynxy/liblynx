@@ -38,4 +38,8 @@ int main(int argc, char **argv) {
 
 		return 1;
 	}
+
+	// load vulkan
+
+	if (vk.init()) debug.info("vulkan initialised successfully");
 }
