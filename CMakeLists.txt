@@ -13,6 +13,7 @@ add_executable(liblynx
   src/inout/node.cpp
 
   src/render/vulkan.cpp
+  src/render/xcb.cpp
 )
 
 target_include_directories(liblynx PRIVATE liblynx/)

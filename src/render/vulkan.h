@@ -1,6 +1,7 @@
 #ifndef vulkan_h
 #define vulkan_h
 
+#include <string>
 #include <vector>
 
 #include <xcb/xcb.h>
@@ -14,16 +15,13 @@ private:
 	
 	VkInstance instance;
 public:
-	// Constructors & Destructors
-
-	VulkanInstance();
-	~VulkanInstance();
 
 	// Member Functions
 
-	bool init();
+	bool init(std::string* err = nullptr);
+	void term();
 
-	void exit_on_error(const char* msg);
+	std::string geterr(int err);
 };
 
 extern VulkanInstance vk;

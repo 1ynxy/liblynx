@@ -4,19 +4,9 @@
 
 VulkanInstance vk;
 
-// Contructors & Destructors
-
-VulkanInstance::VulkanInstance() {
-	
-}
-
-VulkanInstance::~VulkanInstance() {
-	vkDestroyInstance(instance, NULL);
-}
-
 // Member Functions
 
-bool VulkanInstance::init() {
+bool VulkanInstance::init(std::string* err) {
 	// create vulkan application information struct
 
 	VkApplicationInfo appInf = { };
@@ -47,29 +37,27 @@ bool VulkanInstance::init() {
 
 	// create instance & check result
 
-	VkResult res = vkCreateInstance(&createInf, NULL, &instance);
+	VkResult result = vkCreateInstance(&createInf, NULL, &instance);
 
-	if (res == VK_SUCCESS) return true;
-
-	if (res == VK_ERROR_INCOMPATIBLE_DRIVER) {
-		debug.error("vulkan cannot find compatible driver support");
+	if (result != VK_SUCCESS) {
+		if (err) *err = geterr(result);
 
 		return false;
 	}
 
-	if (res == VK_ERROR_INITIALIZATION_FAILED) {
-		debug.error("vulkan initialisation failed");
+	return true;
+}
 
-		return false;
-	}
+void VulkanInstance::term() {
+	vkDestroyInstance(instance, NULL);
+}
 
-	if (res == VK_ERROR_EXTENSION_NOT_PRESENT) {
-		debug.error("vulkan cannot find one or more extensions");
+std::string VulkanInstance::geterr(int err) {
+	if (err == VK_ERROR_INCOMPATIBLE_DRIVER) return "vulkan cannot find compatible driver support";
 
-		return false;
-	}
+	if (err == VK_ERROR_INITIALIZATION_FAILED) return "vulkan initialisation failed";
 
-	debug.error("vulkan encountered an unexpected error : " + std::to_string(res));
+	if (err == VK_ERROR_EXTENSION_NOT_PRESENT) return "vulkan cannot find one or more extensions";
 
-	return false;
+	return "vulkan encountered an unexpected error : " + std::to_string(err);
 }

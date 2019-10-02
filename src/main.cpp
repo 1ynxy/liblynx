@@ -3,15 +3,16 @@
 #include "inout/node.h"
 
 #include "render/vulkan.h"
+#include "render/xcb.h"
 
 Node conf;
 
 int main(int argc, char **argv) {
 	// parse arguments
 
-	std::vector<std::string> arguments;
+	//std::vector<std::string> arguments;
 
-	for (int i = 0; i < argc; i++) arguments.push_back(argv[i]);
+	//for (int i = 0; i < argc; i++) arguments.push_back(argv[i]);
 
 	// load configuration
 
@@ -36,10 +37,30 @@ int main(int argc, char **argv) {
 	if (!success) {
 		debug.error("failed to load all provided config files");
 
-		return 1;
+		return -1;
 	}
 
 	// load vulkan
 
-	if (vk.init()) debug.info("vulkan initialised successfully");
+	std::string err;
+
+	if (!vk.init(&err)) {
+		debug.error(err);
+
+		return -1;
+	}
+
+	debug.info("vulkan initialised successfully");
+
+	// main loop
+
+	while (true) {
+		// do nothing
+	}
+
+	// exit
+
+	vk.term();
+
+	debug.info("vulkan terminated");
 }
